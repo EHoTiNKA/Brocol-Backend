@@ -1,0 +1,275 @@
+{
+  "data": {
+    "brakfast": {
+      "title": "Завтраки",
+      "cards": [
+        {
+          "name": "Пример завтрака",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/posterMak.svg"
+        },
+        {
+          "name": "Пример завтрака 2",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/posterMak.svg"
+        },
+        {
+          "name": "Пример завтрака 3",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/posterMak.svg"
+        },
+        {
+          "name": "Пример завтрака 4",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/posterMak.svg"
+        }
+      ]
+    },
+
+    "salads": {
+      "title": "Салаты",
+      "cards": [
+        {
+          "name": "Пример салата",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример салата",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример салата",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример салата 2",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример салата 3",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример салата 4",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        }
+      ]
+    },
+    "soups": {
+      "title": "Супы",
+      "cards": [
+        {
+          "name": "Пример супа",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример супа",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример супа 2",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример супа 3",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример супа 4",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        }
+      ]
+    },
+    "hot dishes": {
+      "title": "Горячие блюда",
+      "cards": [
+        {
+          "name": "Пример Горячие блюда",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Горячие блюда",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Горячие блюда",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Горячие блюда",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Горячие блюда",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Горячие блюда 2",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Горячие блюда 3",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Горячие блюда 4",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        }
+      ]
+    },
+    "side dishes": {
+      "title": "Гарниры",
+      "cards": [
+        {
+          "name": "Пример Гарниры",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Гарниры",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Гарниры",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Гарниры",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Гарниры",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Гарниры 2",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Гарниры 3",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Гарниры 4",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        }
+      ]
+    },
+    "desserts": {
+      "title": "Десерты",
+      "cards": [
+        {
+          "name": "Пример Десерты",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты 2",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты 3",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        },
+        {
+          "name": "Пример Десерты",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda2.svg"
+        },
+        {
+          "name": "Пример Десерты 4",
+          "description": "Пример",
+          "price": "100",
+          "poster": "/src/assets/eda1.svg"
+        }
+      ]
+    }
+  }
+}
