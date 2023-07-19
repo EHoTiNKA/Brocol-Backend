@@ -1,24 +1,13 @@
-import datetime
 from enum import Enum as PyEnum
 
-from sqlalchemy import Column, Date, DateTime, Enum, ForeignKey, Integer, String, Text
-from sqlalchemy.orm import backref, declarative_base, relationship
+from tortoise.models import Model
+from tortoise import fields
 
 
-Base = declarative_base()
-
-
-class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(255), nullable=False)
-    email = Column(String(255), nullable=False)
-    password = Column(String(255), nullable=False)
-    orders = relationship("Order", backref=backref("user"))
-
-    def __str__(self):
-        return f"User(id={self.id}, name={self.email})"
+class User(Model):
+    name = fields.CharField(max_length=255)
+    email = fields.CharField(max_length=255)
+    password = fields.CharField(max_length=255)
 
 
 class CategoryEnum(PyEnum):
@@ -27,46 +16,32 @@ class CategoryEnum(PyEnum):
     DINNER = "dinner"
 
 
-class Category(Base):
-    __tablename__ = "categories"
+class Category(Model):
+    name = fields.CharField(max_length=255)
+        
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(Enum(CategoryEnum), nullable=False)
-
-    dishes = relationship("Dish", backref=backref("category"))
-
-
-class Order(Base):
-    __tablename__ = "orders"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
-    order_dishes = relationship("OrderDish", backref=backref("order"))
-
-    def __str__(self):
-        return f"Order(id={self.id}, user={self.user.name}, created_at={self.created_at})"
+class Order(Model):
+    user = fields.ForeignKeyField('models.User', related_name='orders')
+    created_at = fields.DatetimeField(auto_now_add=True)
 
 
-class OrderDish(Base):
-    __tablename__ = "orders_dishes"
+class Dish(Model):
+    name = fields.CharField(max_length=255)
+    description = fields.TextField()
+    price = fields.FloatField()
+    image = fields.CharField(max_length=255)
+    category = fields.ForeignKeyField('models.Category',  related_name='dishes')
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
-    dish_id = Column(Integer, ForeignKey("dishes.id"), nullable=False)
-    quantity = Column(Integer, default=1)
+
+class OrderDish(Model):
+    quantity = fields.IntField()
+    order = fields.ForeignKeyField('models.Order',  related_name='order_dish')
+    dish = fields.ForeignKeyField('models.Dish',  related_name='order_dish')
 
 
-class Dish(Base):
-    __tablename__ = "dishes"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(255), nullable=False)
-    description = Column(Text)
-    image = Column(String(255))
-    price = Column(Integer, nullable=False)
-    category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
-    order_dishes = relationship("OrderDish", backref=backref("dish"))
 
-    def __str__(self):
-        return f"Dish(id={self.id}, name={self.name}, price={self.price}, category={self.category.name.value})"
+
+   
+
+

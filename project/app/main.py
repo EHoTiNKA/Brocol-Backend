@@ -2,6 +2,7 @@ import logging
 from fastapi import FastAPI, HTTPException, status
 from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema
 from app.crud import get_category_by_id, get_category_list
+from app.db import init_db, generate_schema
 
 
 log = logging.getLogger("uvicorn")
@@ -25,6 +26,12 @@ app = FastAPI()
 #     with get_db() as db:
 #         dish = db.query(Dish).filter(Dish.id == dish_id).first()
 #         return dish
+
+@app.on_event("startup")
+async def startup_event():
+    log.info("Stating up...")
+    await generate_schema()
+    init_db(app)
     
 @app.get("/categories/", response_model=list[CategorySchema])
 def get_categories():
@@ -34,6 +41,6 @@ def get_categories():
 @app.get("/categories/{category_id}", response_model=CategorySchema)
 def get_category(category_id: int):
     category = get_category_by_id(category_id)
-    if not category:
+    if category is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Category with id {category_id} not found")
     return category

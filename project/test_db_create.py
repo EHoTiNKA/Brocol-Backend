@@ -1,4 +1,4 @@
-from app.db import get_db
+from app.old_db import get_db
 from app.models import User, Dish, OrderDish, Order, Category, CategoryEnum
 
 

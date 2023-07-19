@@ -1,5 +1,5 @@
 from app.db import get_db
-from app.models import User, Dish, OrderDish, Order, Category
+from app.old_models import User, Dish, OrderDish, Order, Category
 
 
 with get_db() as db:
