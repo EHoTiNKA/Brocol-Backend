@@ -3,15 +3,11 @@ from app.models import User, Dish, OrderDish, Order, Category
 from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema
 
 
-def get_category_by_id(category_id: int) -> CategorySchema or None:
+def get_category_by_id(category_id: int) -> Category or None:
     with get_db() as db:
         category = db.query(Category).filter(Category.id == category_id).first()
-        if not category:
-            return None
-        return CategorySchema(
-            id=category.id,
-            name=category.name
-        )
+        return CategorySchema.from_orm(category) if category else None
+    
 
 
 def get_category_list() -> list[CategorySchema]:
