@@ -10,12 +10,6 @@ class User(Model):
     password = fields.CharField(max_length=255)
 
 
-class CategoryEnum(PyEnum):
-    BREAKFAST = "breakfast"
-    LUNCH = "lunch"
-    DINNER = "dinner"
-
-
 class Category(Model):
     name = fields.CharField(max_length=255)
         

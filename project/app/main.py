@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI, HTTPException, status
-from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema
-from app.crud import get_category_by_id, get_category_list
+from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, CategoryCreateSchema
+from app.crud import get_category_by_id, get_category_list, create_category
 from app.db import init_db, generate_schema
 
 
@@ -32,6 +32,7 @@ async def startup_event():
     log.info("Stating up...")
     await generate_schema()
     init_db(app)
+
     
 @app.get("/categories/", response_model=list[CategorySchema])
 async def get_categories():
@@ -43,4 +44,10 @@ async def get_category(category_id: int):
     category = await get_category_by_id(category_id)
     if category is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Category with id {category_id} not found")
+    return category
+
+
+@app.post("/categories", response_model=CategorySchema)
+async def create_category_(category_schema: CategoryCreateSchema):
+    category = await create_category(category_schema.name)
     return category

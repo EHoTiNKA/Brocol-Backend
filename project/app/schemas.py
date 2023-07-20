@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-from app.models import CategoryEnum
 
 
 class UserSchema(BaseModel):
@@ -13,15 +12,16 @@ class UserSchema(BaseModel):
         orm_mode = True
 
 
-class CategorySchema(BaseModel):
+class CategoryCreateSchema(BaseModel):
+    name: str
+
+
+class CategorySchema(CategoryCreateSchema):
     id: int
-    name: CategoryEnum
 
     class Config:
         orm_mode = True
 
-    class Config:
-        orm_mode = True
 
 
 class DishSchema(BaseModel):

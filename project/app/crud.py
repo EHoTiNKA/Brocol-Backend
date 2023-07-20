@@ -8,3 +8,7 @@ async def get_category_by_id(category_id: int) -> Category or None:
 
 async def get_category_list() -> list[CategorySchema]:
     return await Category.all()
+
+async def create_category(name: str) -> Category:
+    category = await Category.create(name=name)
+    return category

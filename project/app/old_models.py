@@ -21,17 +21,12 @@ class User(Base):
         return f"User(id={self.id}, name={self.email})"
 
 
-class CategoryEnum(PyEnum):
-    breakfast = "breakfast"
-    lunch = "lunch"
-    dinner = "dinner"
-
 
 class Category(Base):
     __tablename__ = "category"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(Enum(CategoryEnum), nullable=False)
+    name = Column(String(255), nullable=False)
 
     dishes = relationship("Dish", backref=backref("category"))
 
@@ -49,7 +44,7 @@ class Order(Base):
 
 
 class OrderDish(Base):
-    __tablename__ = "ordersdish"
+    __tablename__ = "orderdish"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey("order.id"), nullable=False)
