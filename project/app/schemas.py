@@ -3,22 +3,28 @@ from pydantic import BaseModel
 from app.models import CategoryEnum
 
 
-class BaseModelORM(BaseModel):
-    class Config:
-        orm_mode = True
-
-
-class UserSchema(BaseModelORM):
+class UserSchema(BaseModel):
     id: int
     name: str
     email: str
     password: str
 
-class CategorySchema(BaseModelORM):
+    class Config:
+        orm_mode = True
+
+
+class CategorySchema(BaseModel):
     id: int
     name: CategoryEnum
 
-class DishSchema(BaseModelORM):
+    class Config:
+        orm_mode = True
+
+    class Config:
+        orm_mode = True
+
+
+class DishSchema(BaseModel):
     id: int
     name: str
     description: str
@@ -26,8 +32,14 @@ class DishSchema(BaseModelORM):
     price: int
     category: CategorySchema
 
-class OrderSchema(BaseModelORM):
+    class Config:
+        orm_mode = True
+
+
+class OrderSchema(BaseModel):
     id: int
     user: UserSchema
     created_at: str
 
+    class Config:
+        orm_mode = True

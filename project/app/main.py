@@ -34,13 +34,13 @@ async def startup_event():
     init_db(app)
     
 @app.get("/categories/", response_model=list[CategorySchema])
-def get_categories():
-    return get_category_list()
+async def get_categories():
+    return await get_category_list()
 
     
 @app.get("/categories/{category_id}", response_model=CategorySchema)
-def get_category(category_id: int):
-    category = get_category_by_id(category_id)
+async def get_category(category_id: int):
+    category = await get_category_by_id(category_id)
     if category is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Category with id {category_id} not found")
     return category

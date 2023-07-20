@@ -1,5 +1,5 @@
 from app.old_db import get_db
-from app.models import User, Dish, OrderDish, Order, Category, CategoryEnum
+from app.old_models import User, Dish, OrderDish, Order, Category, CategoryEnum
 
 
 with get_db() as db:
@@ -7,13 +7,13 @@ with get_db() as db:
     user2 = User(name="user2", password="user1223", email="example2@yandex.ru")
 
     for user in [user1, user2]:
-        db.add(user)
+        db.add(user) 
         db.commit()
         db.refresh(user)
 
-    breakfast = Category(name=CategoryEnum.BREAKFAST)
-    lunch = Category(name=CategoryEnum.LUNCH)
-    dinner = Category(name=CategoryEnum.DINNER)
+    breakfast = Category(name=CategoryEnum.breakfast)
+    lunch = Category(name=CategoryEnum.lunch)
+    dinner = Category(name=CategoryEnum.dinner)
 
     for category in [breakfast, lunch, dinner]:
         db.add(category)
