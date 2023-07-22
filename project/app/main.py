@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI, HTTPException, status
-from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, CategoryCreateSchema
-from app.crud import get_category_by_id, get_category_list, create_category
+from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, CategoryCreateSchema, CreateDishSchema
+from app.crud import get_category_by_id, get_category_list, create_category, get_dish_list, create_dish
 from app.db import init_db, generate_schema
 
 
@@ -47,7 +47,17 @@ async def get_category(category_id: int):
     return category
 
 
-@app.post("/categories", response_model=CategorySchema)
+@app.post("/categories/", response_model=CategorySchema)
 async def create_category_(category_schema: CategoryCreateSchema):
     category = await create_category(category_schema.name)
     return category
+
+@app.get("/dishes/", response_model=list[DishSchema])
+async def get_dish_list_(category_id: int | None = None):
+    dish_list = await get_dish_list(category_id)
+    return dish_list
+
+@app.post("/dishes/", response_model=DishSchema)
+async def create_dish_(dish_schema: CreateDishSchema):
+    new_dish = await create_dish(dish_schema)
+    return new_dish

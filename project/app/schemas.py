@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
 
-
 class UserSchema(BaseModel):
     id: int
     name: str
@@ -23,13 +22,19 @@ class CategorySchema(CategoryCreateSchema):
         orm_mode = True
 
 
-
-class DishSchema(BaseModel):
-    id: int
+class DishBaseSchema(BaseModel):
     name: str
     description: str
-    image: str
+    image: str | None = None
     price: int
+
+
+class CreateDishSchema(DishBaseSchema):
+    category_id: int
+
+
+class DishSchema(DishBaseSchema):
+    id: int
     category: CategorySchema
 
     class Config:
