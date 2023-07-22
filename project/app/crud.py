@@ -1,5 +1,5 @@
 from app.models import User, Dish, OrderDish, Order, Category
-from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, CreateDishSchema
+from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, CreateDishSchema, UpdateDishSchema
 
 
 async def get_category_by_id(category_id: int) -> Category or None:
@@ -26,4 +26,19 @@ async def create_dish(dish_schema: CreateDishSchema) -> Dish:
         price=dish_schema.price,
         category= await get_category_by_id(dish_schema.category_id)
     )
+    return dish
+
+
+async def get_dish_by_id(dish_id: int) -> Dish or None:
+    return await Dish.get_or_none(id=dish_id).prefetch_related("category")
+
+
+async def update_dish(dish_schema: UpdateDishSchema) -> Dish:
+    dish = await get_dish_by_id(dish_schema.id)
+    update_dict = dish_schema.dict(exclude_unset=True)
+    if "category_id" in update_dict:
+        update_dict["category"] = await get_category_by_id(update_dict.pop("category_id"))
+
+    await dish.update_from_dict(update_dict)
+    await dish.save()
     return dish

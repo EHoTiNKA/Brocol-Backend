@@ -41,6 +41,15 @@ class DishSchema(DishBaseSchema):
         orm_mode = True
 
 
+class UpdateDishSchema(BaseModel):
+    id: int
+    name: str | None = None
+    description: str | None = None
+    image: str | None = None
+    price: int | None = None
+    category_id: int | None = None
+
+
 class OrderSchema(BaseModel):
     id: int
     user: UserSchema

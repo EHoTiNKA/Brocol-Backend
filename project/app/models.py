@@ -23,7 +23,7 @@ class Dish(Model):
     name = fields.CharField(max_length=255)
     description = fields.TextField()
     price = fields.FloatField()
-    image = fields.CharField(max_length=255)
+    image = fields.CharField(max_length=255, null=True)
     category = fields.ForeignKeyField('models.Category',  related_name='dishes')
 
 
