@@ -17,6 +17,8 @@ from app.crud import (
     create_dish,
     get_dish_by_id,
     update_dish,
+    get_order_list,
+    get_order_by_id,
 )
 from app.db import init_db, generate_schema
 
@@ -100,3 +102,19 @@ async def get_dish_(dish_id: int):
             detail=f"Dish with id {dish_id} not found",
         )
     return dish
+
+
+@app.get("/orders/", response_model=list[OrderSchema])
+async def get_orders():
+    return await get_order_list()
+
+
+@app.get("/orders/{order_id}/", response_model=OrderSchema)
+async def get_order(order_id: int):
+    order = await get_order_by_id(order_id)
+    if order is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Order with id {order_id} not found",
+        )
+    return order

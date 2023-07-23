@@ -9,14 +9,17 @@ async def get_category_by_id(category_id: int) -> Category or None:
 async def get_category_list() -> list[CategorySchema]:
     return await Category.all()
 
+
 async def create_category(name: str) -> Category:
     category = await Category.create(name=name)
     return category
+
 
 async def get_dish_list(category_id: int | None = None) -> list[Dish]:
     if category_id is None:
         return await Dish.all().prefetch_related('category')
     return await Dish.filter(category_id=category_id).prefetch_related("category")
+
 
 async def create_dish(dish_schema: CreateDishSchema) -> Dish:
     dish = await Dish.create(
@@ -42,3 +45,11 @@ async def update_dish(dish_schema: UpdateDishSchema) -> Dish:
     await dish.update_from_dict(update_dict)
     await dish.save()
     return dish
+ 
+
+async def get_order_list() -> list[OrderSchema]:
+    return await Order.all
+
+
+async def get_order_by_id(order_id: int) -> Order or None:
+    return await Order.get_or_none(id=order_id)
