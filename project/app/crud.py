@@ -1,5 +1,5 @@
 from app.models import User, Dish, OrderDish, Order, Category
-from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, CreateDishSchema, UpdateDishSchema
+from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, DishCreateSchema, DishUpdateSchema
 
 
 async def get_category_by_id(category_id: int) -> Category or None:
@@ -21,7 +21,7 @@ async def get_dish_list(category_id: int | None = None) -> list[Dish]:
     return await Dish.filter(category_id=category_id).prefetch_related("category")
 
 
-async def create_dish(dish_schema: CreateDishSchema) -> Dish:
+async def create_dish(dish_schema: DishCreateSchema) -> Dish:
     dish = await Dish.create(
         name=dish_schema.name,
         description=dish_schema.description,
@@ -36,7 +36,7 @@ async def get_dish_by_id(dish_id: int) -> Dish or None:
     return await Dish.get_or_none(id=dish_id).prefetch_related("category")
 
 
-async def update_dish(dish_schema: UpdateDishSchema) -> Dish:
+async def update_dish(dish_schema: DishUpdateSchema) -> Dish:
     dish = await get_dish_by_id(dish_schema.id)
     update_dict = dish_schema.dict(exclude_unset=True)
     if "category_id" in update_dict:
@@ -47,9 +47,12 @@ async def update_dish(dish_schema: UpdateDishSchema) -> Dish:
     return dish
  
 
-async def get_order_list() -> list[OrderSchema]:
-    return await Order.all
+async def get_order_list() -> list[Order]:
+    return await Order.all().prefetch_related('user')
 
 
 async def get_order_by_id(order_id: int) -> Order or None:
-    return await Order.get_or_none(id=order_id)
+    return await Order.get_or_none(id=order_id).prefetch_related('user')
+
+async def get_orders_by_user_id(user_id: int) -> list[Order]:
+    return await Order.filter(id=user_id).prefetch_related('user')

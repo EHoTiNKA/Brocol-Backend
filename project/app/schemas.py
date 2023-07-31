@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -29,7 +31,7 @@ class DishBaseSchema(BaseModel):
     price: int
 
 
-class CreateDishSchema(DishBaseSchema):
+class DishCreateSchema(DishBaseSchema):
     category_id: int
 
 
@@ -41,7 +43,7 @@ class DishSchema(DishBaseSchema):
         orm_mode = True
 
 
-class UpdateDishSchema(BaseModel):
+class DishUpdateSchema(BaseModel):
     id: int
     name: str | None = None
     description: str | None = None
@@ -50,10 +52,15 @@ class UpdateDishSchema(BaseModel):
     category_id: int | None = None
 
 
+
+
+
+
+
 class OrderSchema(BaseModel):
     id: int
     user: UserSchema
-    created_at: str
+    created_at: datetime
 
     class Config:
         orm_mode = True

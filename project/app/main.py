@@ -3,11 +3,11 @@ from fastapi import FastAPI, HTTPException, status
 from app.schemas import (
     UserSchema,
     DishSchema,
-    UpdateDishSchema,
+    DishUpdateSchema,
     OrderSchema,
     CategorySchema,
     CategoryCreateSchema,
-    CreateDishSchema,
+    DishCreateSchema,
 )
 from app.crud import (
     get_category_by_id,
@@ -19,6 +19,7 @@ from app.crud import (
     update_dish,
     get_order_list,
     get_order_by_id,
+    get_orders_by_user_id,
 )
 from app.db import init_db, generate_schema
 
@@ -82,13 +83,13 @@ async def get_dish_list_(category_id: int | None = None):
 
 
 @app.post("/dishes/", response_model=DishSchema)
-async def create_dish_(dish_schema: CreateDishSchema):
+async def create_dish_(dish_schema: DishCreateSchema):
     new_dish = await create_dish(dish_schema)
     return new_dish
 
 
 @app.put("/dishes/", response_model=DishSchema)
-async def update_dish_(dish_schema: UpdateDishSchema):
+async def update_dish_(dish_schema: DishUpdateSchema):
     dish = await update_dish(dish_schema)
     return dish
 
@@ -106,7 +107,8 @@ async def get_dish_(dish_id: int):
 
 @app.get("/orders/", response_model=list[OrderSchema])
 async def get_orders():
-    return await get_order_list()
+    order_list = await get_order_list()
+    return order_list
 
 
 @app.get("/orders/{order_id}/", response_model=OrderSchema)
@@ -118,3 +120,13 @@ async def get_order(order_id: int):
             detail=f"Order with id {order_id} not found",
         )
     return order
+
+@app.get("/orders/from-user/{user_id}/", response_model=list[OrderSchema])
+async def get_orders_by_user_id_(user_id: int):
+    log.warn(user_id)    
+    return await get_orders_by_user_id(user_id) 
+
+# @app.post("/orders/", response_model=OrderSchema)
+# async def create_order_(dish_schema: DishCreateSchema):
+#     new_order = await create_order(dish_schema)
+#     return new_order
