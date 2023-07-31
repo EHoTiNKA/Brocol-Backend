@@ -64,3 +64,11 @@ class OrderSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class OrderWithDishSchema(OrderSchema):
+    unique_dishes_count: int
+    dishes_count: int
+
+    class Config:
+        orm_mode = True

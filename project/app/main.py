@@ -8,6 +8,7 @@ from app.schemas import (
     CategorySchema,
     CategoryCreateSchema,
     DishCreateSchema,
+    OrderWithDishSchema,
 )
 from app.crud import (
     get_category_by_id,
@@ -20,6 +21,9 @@ from app.crud import (
     get_order_list,
     get_order_by_id,
     get_orders_by_user_id,
+    get_orders_by_user_email,
+    get_dishes_by_order_id,
+    get_orders_by_dish_id,
 )
 from app.db import init_db, generate_schema
 
@@ -105,7 +109,7 @@ async def get_dish_(dish_id: int):
     return dish
 
 
-@app.get("/orders/", response_model=list[OrderSchema])
+@app.get("/orders/", response_model=list[OrderWithDishSchema])
 async def get_orders():
     order_list = await get_order_list()
     return order_list
@@ -122,9 +126,25 @@ async def get_order(order_id: int):
     return order
 
 @app.get("/orders/from-user/{user_id}/", response_model=list[OrderSchema])
-async def get_orders_by_user_id_(user_id: int):
-    log.warn(user_id)    
+async def get_orders_by_user_id_(user_id: int): 
     return await get_orders_by_user_id(user_id) 
+
+
+@app.get("/orders/from-user-email/{user_email}/", response_model=list[OrderSchema])
+async def get_orders_by_user_email_(user_email: str):
+    return await get_orders_by_user_email(user_email) 
+
+
+@app.get("/dishes/from-order/{order_id}/", response_model=list[DishSchema])
+async def get_dishes_by_order_id_(order_id: int):
+    return await get_dishes_by_order_id(order_id)
+
+
+@app.get("/orders/from-dish/{dish_id}/", response_model=list[OrderSchema])
+async def get_orders_by_dish_id_(dish_id: int):
+    return await get_orders_by_dish_id(dish_id)
+
+
 
 # @app.post("/orders/", response_model=OrderSchema)
 # async def create_order_(dish_schema: DishCreateSchema):

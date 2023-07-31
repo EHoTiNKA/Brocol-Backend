@@ -39,6 +39,13 @@ with get_db() as db:
         db.add(order_dish)
     db.add(order1)
 
+    order3 = Order(user=user1)
+    order3_dishes = [dish1, dish2, dish3]
+    for dish in order1_dishes:
+        order_dish = OrderDish(order=order3, dish=dish)
+        db.add(order_dish)
+    db.add(order3)
+
 
     order2 = Order(user=user2)
     order2_dishes = [

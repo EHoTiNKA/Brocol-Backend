@@ -1,6 +1,10 @@
 from app.models import User, Dish, OrderDish, Order, Category
 from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, DishCreateSchema, DishUpdateSchema
+from tortoise import functions
 
+
+async def get_user_by_email(email: str) -> User or None:
+    return await User.get_or_none(email=email)
 
 async def get_category_by_id(category_id: int) -> Category or None:
     return await Category.get_or_none(id=category_id)
@@ -48,11 +52,24 @@ async def update_dish(dish_schema: DishUpdateSchema) -> Dish:
  
 
 async def get_order_list() -> list[Order]:
-    return await Order.all().prefetch_related('user')
+    return await Order.annotate(
+        unique_dishes_count=functions.Count("order_dish"),
+        dishes_count=functions.Sum("order_dish__quantity")
+    ).all().prefetch_related('user')
 
 
 async def get_order_by_id(order_id: int) -> Order or None:
     return await Order.get_or_none(id=order_id).prefetch_related('user')
 
 async def get_orders_by_user_id(user_id: int) -> list[Order]:
-    return await Order.filter(id=user_id).prefetch_related('user')
+    return await Order.filter(user_id=user_id).prefetch_related('user')
+
+async def get_orders_by_user_email(user_email: str) -> list[Order]:
+    return await Order.filter(user__email=user_email).prefetch_related('user')
+
+
+async def get_dishes_by_order_id(order_id: int) -> list[Dish]:
+    return await Dish.filter(order_dish__order_id=order_id).prefetch_related('category')
+
+async def get_orders_by_dish_id(dish_id: int) -> list[Order]:
+    return await Order.filter(order_dish__dish_id=dish_id).prefetch_related('user')
