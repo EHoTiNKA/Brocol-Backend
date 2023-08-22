@@ -1,6 +1,9 @@
 from app.models import User, Dish, OrderDish, Order, Category
-from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, DishCreateSchema, DishUpdateSchema
+from app.schemas import UserSchema, DishSchema, OrderSchema, CategorySchema, DishCreateSchema, DishUpdateSchema, OrderCreateSchema
 from tortoise import functions
+
+async def get_user_by_id(id: int) -> User or None:
+    return await User.get_or_none(id=id)
 
 
 async def get_user_by_email(email: str) -> User or None:
@@ -76,3 +79,20 @@ async def get_orders_by_dish_id(dish_id: int) -> list[Order]:
 
 async def get_orders_by_category_id(category_id: int) -> list[Order]:
     return await Order.filter(order_dish__dish__category_id=category_id).distinct().prefetch_related('user')
+
+# async def create_dish(dish_schema: DishCreateSchema) -> Dish:
+#     dish = await Dish.create(
+#         name=dish_schema.name,
+#         description=dish_schema.description,
+#         image=dish_schema.image,
+#         price=dish_schema.price,
+#         category= await get_category_by_id(dish_schema.category_id)
+#     )
+#     return dish
+
+async def create_order(order_schema: OrderCreateSchema) -> Order:
+    user = await get_user_by_id(order_schema.user_id)
+    order = await Order.create(
+        user=user,
+    )
+    return order

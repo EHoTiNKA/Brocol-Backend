@@ -67,3 +67,8 @@ class OrderWithDishSchema(OrderSchema):
 
     class Config:
         orm_mode = True
+
+class OrderCreateSchema(BaseModel):
+    user_id: int
+    dish_id_list: list[int]
+    

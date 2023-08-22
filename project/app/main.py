@@ -9,6 +9,7 @@ from app.schemas import (
     CategoryCreateSchema,
     DishCreateSchema,
     OrderWithDishSchema,
+    OrderCreateSchema,
 )
 from app.crud import (
     get_category_by_id,
@@ -25,6 +26,7 @@ from app.crud import (
     get_dishes_by_order_id,
     get_orders_by_dish_id,
     get_orders_by_category_id,
+    create_order,
 )
 from app.db import init_db, generate_schema
 
@@ -149,9 +151,14 @@ async def get_orders_by_dish_id_(dish_id: int):
 async def get_orders_by_category_id_(category_id: int):
     return await get_orders_by_category_id(category_id)
 
+@app.post("/orders/", response_model=OrderSchema)
+async def create_order_(order_schema: OrderCreateSchema):
+    order = await create_order(order_schema)
+    return order
 
 
-# @app.post("/orders/", response_model=OrderSchema)
-# async def create_order_(dish_schema: DishCreateSchema):
-#     new_order = await create_order(dish_schema)
-#     return new_order
+
+# @app.post("/categories/", response_model=CategorySchema)
+# async def create_category_(category_schema: CategoryCreateSchema):
+#     category = await create_category(category_schema.name)
+#     return category
