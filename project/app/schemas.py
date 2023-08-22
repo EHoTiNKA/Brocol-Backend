@@ -52,11 +52,6 @@ class DishUpdateSchema(BaseModel):
     category_id: int | None = None
 
 
-
-
-
-
-
 class OrderSchema(BaseModel):
     id: int
     user: UserSchema

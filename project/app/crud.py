@@ -73,3 +73,6 @@ async def get_dishes_by_order_id(order_id: int) -> list[Dish]:
 
 async def get_orders_by_dish_id(dish_id: int) -> list[Order]:
     return await Order.filter(order_dish__dish_id=dish_id).prefetch_related('user')
+
+async def get_orders_by_category_id(category_id: int) -> list[Order]:
+    return await Order.filter(order_dish__dish__category_id=category_id).distinct().prefetch_related('user')

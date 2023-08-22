@@ -24,6 +24,7 @@ from app.crud import (
     get_orders_by_user_email,
     get_dishes_by_order_id,
     get_orders_by_dish_id,
+    get_orders_by_category_id,
 )
 from app.db import init_db, generate_schema
 
@@ -143,6 +144,10 @@ async def get_dishes_by_order_id_(order_id: int):
 @app.get("/orders/from-dish/{dish_id}/", response_model=list[OrderSchema])
 async def get_orders_by_dish_id_(dish_id: int):
     return await get_orders_by_dish_id(dish_id)
+
+@app.get("/orders/from-category/{category_id}/", response_model=list[OrderSchema])
+async def get_orders_by_category_id_(category_id: int):
+    return await get_orders_by_category_id(category_id)
 
 
 
