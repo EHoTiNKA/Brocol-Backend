@@ -28,7 +28,7 @@ class Dish(Model):
 
 
 class OrderDish(Model):
-    quantity = fields.IntField()
+    quantity = fields.IntField(default=1)
     order = fields.ForeignKeyField('models.Order',  related_name='order_dish')
     dish = fields.ForeignKeyField('models.Dish',  related_name='order_dish')
 

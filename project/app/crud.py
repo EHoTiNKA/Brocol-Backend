@@ -42,6 +42,9 @@ async def create_dish(dish_schema: DishCreateSchema) -> Dish:
 async def get_dish_by_id(dish_id: int) -> Dish or None:
     return await Dish.get_or_none(id=dish_id).prefetch_related("category")
 
+async def get_dishes_by_id_list(dish_id_list: list[int]) -> list[Dish]:
+    return await Dish.filter(id__in=dish_id_list).prefetch_related("category")
+
 
 async def update_dish(dish_schema: DishUpdateSchema) -> Dish:
     dish = await get_dish_by_id(dish_schema.id)
@@ -95,4 +98,10 @@ async def create_order(order_schema: OrderCreateSchema) -> Order:
     order = await Order.create(
         user=user,
     )
+    dishes = await get_dishes_by_id_list(order_schema.dish_id_list)
+    for dish in dishes:
+        await OrderDish.create(
+            order=order,
+            dish=dish,
+        )
     return order
