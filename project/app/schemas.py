@@ -71,4 +71,5 @@ class OrderWithDishSchema(OrderSchema):
 class OrderCreateSchema(BaseModel):
     user_id: int
     dish_id_list: list[int]
+    dish_quantity_list: list[int] 
     

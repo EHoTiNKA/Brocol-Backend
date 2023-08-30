@@ -99,9 +99,11 @@ async def create_order(order_schema: OrderCreateSchema) -> Order:
         user=user,
     )
     dishes = await get_dishes_by_id_list(order_schema.dish_id_list)
-    for dish in dishes:
+    for dish, quantity in zip(dishes, order_schema.dish_quantity_list):
         await OrderDish.create(
             order=order,
             dish=dish,
+            quantity=quantity,
         )
+    
     return order
