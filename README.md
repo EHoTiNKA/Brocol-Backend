@@ -24,8 +24,14 @@ To transfer the project to yourself, follow these steps:
 git clone https://github.com/your-username/Brocol-Backend.git .
 ```
 
-2. Install the required dependencies:
+2. Creating and running a virtual environment:
 
+```
+python -m venv env
+```
+```
+source env/Scripts/Activate 
+```
 ```
 pip install -r requirements.txt
 ```
@@ -33,13 +39,13 @@ pip install -r requirements.txt
 3. Run the dev version:
 
 ```
-source env/Scripts/Activate - активация env
+source env/Scripts/Activate 
 ```
 ```
 cd project/
 ```
 ```
-uvicorn app.main:app --reload  - запуск сервера
+uvicorn app.main:app --reload  
 ```
 
 
