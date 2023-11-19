@@ -6,7 +6,7 @@ Created using:
 - Fast api
 - Unicorn
 - Sqlalchemy
-- Turtle-orm
+- Tortoise-orm
 
 ## Future plans
 
